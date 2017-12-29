@@ -1,0 +1,38 @@
+tick
+
+DWORD dwStart, dwStop ;
+DWORD targetThreadID;
+int tmpInt;
+
+DWORD WINAPI SystemTickThread(LPVOID threadNo)
+{
+    while(1)
+    {
+		dwStart = dwStop;
+
+		do
+		{
+			dwStop = GetTickCount();
+		}while(dwStop - 1000 < dwStart);
+
+		printf("1s passed\r\n");
+    }
+}
+
+休眠
+Sleep(10000);单位毫秒
+
+DWORD SuspendThread(HANDLE hThread);  
+DWORD ResumeThread(HANDLE hThread);  
+
+function CreateThread(
+  lpThreadAttributes: Pointer;           {安全设置}
+  dwStackSize: DWORD;                    {堆栈大小}
+  lpStartAddress: TFNThreadStartRoutine; {入口函数}
+  lpParameter: Pointer;                  {函数参数}
+  dwCreationFlags: DWORD;                {启动选项}
+  var lpThreadId: DWORD                  {输出线程 ID }
+): THandle; stdcall;                     {返回线程句柄}
+
+CREATE_SUSPENDED
+CreateThread(NULL, 100, Task, pTaskID, CREATE_SUSPENDED, &targetThreadID[*pTaskID]);
